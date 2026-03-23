@@ -13,6 +13,28 @@ Analyzing 6,971 NFL games from 2000–2025 to assess how efficiently the betting
 
 ---
 
+## Visualizations
+
+### Spread Distribution & Spread vs Actual Margin
+![Spread Distribution](figures/fig1_spread_distribution.png)
+
+### Cover Rate by Spread Size
+![Cover by Spread](figures/fig2_cover_by_spread.png)
+
+### Cover Rate by Season
+![Cover by Season](figures/fig3_cover_by_season.png)
+
+### Over/Under vs Actual Total
+![Over Under](figures/fig4_over_under.png)
+
+### Feature Importance
+![Feature Importance](figures/fig5_feature_importance.png)
+
+### Over/Under Analysis
+![Over Under](figures/fig_over_under_analysis.png)
+
+---
+
 ## Why the Edge Isn't Exploitable
 
 Even with a statistically significant underdog bias, three factors prevent profitable exploitation:
