@@ -1,6 +1,6 @@
 # NFL Spread & Over/Under Market Efficiency Analysis
 
-Analyzing 6,971 NFL games from 2000–2025 to assess how efficiently the betting market prices point spreads and totals. Built using Python with a focus on quantitative reasoning, feature engineering, and predictive modeling.
+Analyzing 6,971 NFL games from 2000-2025 to assess how efficiently the betting market prices point spreads and totals. Built using Python with a focus on quantitative reasoning, feature engineering, and predictive modeling.
 
 ## Key Findings
 - Favorites covered the spread only 46.9% of the time: There is a statistically significant bias (p < 0.0001) for the underdog, though insufficient to exploit profitably after standard vig (-110 odds).
@@ -34,14 +34,14 @@ Analyzing 6,971 NFL games from 2000–2025 to assess how efficiently the betting
 
 Even with a statistically significant underdog bias, three factors prevent long-term profit:
 
-1. The vig — Standard -110 odds require 52.4% accuracy to break even. The underdog cover rate of 53.1% leaves almost no margin.
-2. Market correction — When sharp money fades the favorites, books will adjust the lines lines, getting rid of the edge in real time.
-3. No opening/closing line data- This dataset only contains one spread for each game. There isn't an opening and closing line. True edge is measured by closing line value.
+1. The vig: Standard -110 odds require 52.4% accuracy to break even. The underdog cover rate of 53.1% leaves almost no margin.
+2. Market correction: When sharp money fades the favorites, books will adjust the lines lines, getting rid of the edge in real time.
+3. No opening/closing line data: This dataset only contains one spread for each game. There isn't an opening and closing line. True edge is measured by closing line value.
 
 ## Methodology
 
 ### Data Preparation
-- Filtered to 2000–2025 (modern betting era), removing pre-2000 games where market structure differed significantly
+- Filtered to 2000-2025 (modern betting era), removing pre-2000 games where market structure differed significantly
 - Built a team name mapping dictionary to handle franchise relocations and rebrands (Washington Redskins, Washington Football Team, Washington Commanders, etc.)
 - Dropped 46 pick'em games (<1% of data) where no spread existed
 
@@ -68,7 +68,7 @@ Even with a statistically significant underdog bias, three factors prevent long-
 
 ## Limitations & Future Work
 
-- No opening/closing line — Adding both lines would allow us to view closing line value analysis.
-- No injury data — Injuries are among the most impactful variables for line movement.
-- No rest/travel data — Short-week games (Thursday Night Football) and teams with unfavorable travel schedules can effect team performance.
-- Static historical analysis — Real-time odds would be needed in the future to allow for live bets to exploit these markets.
+- No opening/closing line: Adding both lines would allow us to view closing line value analysis.
+- No injury data: Injuries are among the most impactful variables for line movement.
+- No rest/travel data: Short-week games (Thursday Night Football) and teams with unfavorable travel schedules can effect team performance.
+- Static historical analysis: Real-time odds would be needed in the future to allow for live bets to exploit these markets.
