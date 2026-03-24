@@ -2,16 +2,11 @@
 
 Analyzing 6,971 NFL games from 2000–2025 to assess how efficiently the betting market prices point spreads and totals. Built using Python with a focus on quantitative reasoning, feature engineering, and predictive modeling.
 
----
-
 ## Key Findings
-
-- **Favorites covered the spread only 46.9% of the time** — a statistically significant underdog bias (p < 0.0001), though insufficient to exploit profitably after standard vig (-110)
-- **The over/under market appears more efficient than the spread market** - with actual totals more symmetrically distributed around the line
-- **Wind speed is an underappreciated factor in totals** — games above 15mph show meaningfully lower scoring, suggesting a weather-based signal worth further research
-- **Logistic regression and random forest models achieved 52.9% and 52.8% cross-validated accuracy** respectively — consistent with a largely efficient but imperfectly priced market
-
----
+- Favorites covered the spread only 46.9% of the time: There is a statistically significant bias (p < 0.0001) for the underdog, though insufficient to exploit profitably after standard vig (-110 odds).
+- The over/under market appears more efficient than the spread market: The actual totals in the game are more symmetrically distributed around the pregame O/U line.
+- Wind speed is an undervalued factor in totals: Games where the wind is above 15 mph result in low scoring games, very often going under the O/U pregame line. It is a small sample size and would need further research.
+- Logistic regression and random forest models achieved 52.9% and 52.8% cross-validation accuracy: It's very difficult to beat the market most of the time but there are small gaps it can be done.
 
 ## Visualizations
 
@@ -37,77 +32,43 @@ Analyzing 6,971 NFL games from 2000–2025 to assess how efficiently the betting
 
 ## Why the Edge Isn't Exploitable
 
-Even with a statistically significant underdog bias, three factors prevent profitable exploitation:
+Even with a statistically significant underdog bias, three factors prevent long-term profit:
 
-1. **The vig** — standard -110 odds require 52.4% accuracy to break even; the observed underdog cover rate of 53.1% leaves essentially no margin
-2. **Market self-correction** — as sharp money fades favorites, books adjust lines, getting rid of the edge in real time
-3. **No opening/closing line data** — true edge is measured by closing line value (CLV); this dataset contains only one spread per game
-
----
+1. The vig — Standard -110 odds require 52.4% accuracy to break even. The underdog cover rate of 53.1% leaves almost no margin.
+2. Market correction — When sharp money fades the favorites, books will adjust the lines lines, getting rid of the edge in real time.
+3. No opening/closing line data- This dataset only contains one spread for each game. There isn't an opening and closing line. True edge is measured by closing line value.
 
 ## Methodology
 
 ### Data Preparation
 - Filtered to 2000–2025 (modern betting era), removing pre-2000 games where market structure differed significantly
-- Built a time-aware team name mapping dictionary to handle franchise relocations and rebrands (Washington Redskins → Football Team → Commanders; San Diego → Los Angeles Chargers; Oakland → Las Vegas Raiders)
+- Built a team name mapping dictionary to handle franchise relocations and rebrands (Washington Redskins, Washington Football Team, Washington Commanders, etc.)
 - Dropped 46 pick'em games (<1% of data) where no spread existed
 
 ### Feature Engineering
 
-| Feature | Description |
-|---|---|
-| `spread_magnitude` | Absolute value of the spread — captures how uneven the matchup is |
-| `home_favorite` | Binary flag — favorite has home field advantage |
-| `is_playoff` | Binary flag — regular season vs. playoff game |
-| `is_division_game` | Binary flag — divisional matchups tend to be more competitive |
-| `weather_wind_mph` | Wind speed at game time |
-| `over_under_line` | Market-set total — expected game pace and style |
+- `spread_magnitude`- Absolute value of the spread, shows how uneven the matchup is
+- `home_favorite`- Binary feature, indicates if favorite has home field advantage
+- `is_playoff`- Binary feature, indicates if it is a regular season or playoff game
+- `is_division_game`- Binary feature, indicates if a game is a divisional matchup
+- `over_line`- Binary feature, indicates if the game went over the O/U line set pregame
+- `margin`- Calculated the margin of the game
+- `favorite_cover`- Binary feature, indicates if the favorite covered the spread (target feature)
 
-> `total_score` and `over_line` were explicitly excluded from modeling due to **target leakage** — both are derived from the final score, information unavailable at bet placement time.
+- `total_score` and `over_line` were excluded from modeling due to target leakage. These features are both derived from the final score, information unavailable at the time the bet was placed.
 
 ### Models
-- Logistic Regression (interpretable baseline, coefficient analysis)
-- Random Forest (captures non-linearities, feature importance)
+- Logistic Regression
+- Random Forest
 - 5-fold cross-validation on all models
-
----
-
-## Repo Structure
-
-```
-nfl-market-efficiency/
-│
-├── nfl_market_efficiency.ipynb   # Full analysis notebook
-├── spreadspoke_scores.csv        # Raw dataset (via Kaggle)
-│
-└── figures/
-    ├── fig1_spread_distribution.png
-    ├── fig2_cover_by_spread.png
-    ├── fig3_cover_by_season.png
-    ├── fig4_over_under.png
-    ├── fig_over_under_analysis
-    └── fig5_feature_importance.png
-```
-
----
-
-## Requirements
-
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn scipy
-```
-
----
 
 ## Data Source
 
 [NFL Scores and Betting Data — Kaggle](https://www.kaggle.com/datasets/tobycrabtree/nfl-scores-and-betting-data)
 
----
-
 ## Limitations & Future Work
 
-- **No opening/closing line** — adding this would enable true CLV analysis
-- **No injury data** — key injuries are among the most impactful variables for line movement
-- **No rest/travel data** — short-week games (Thursday Night Football) and cross-country travel affect performance
-- **Static historical analysis** — a live implementation would require real-time odds to act on mispriced lines as they move
+- No opening/closing line — Adding both lines would allow us to view closing line value analysis.
+- No injury data — Injuries are among the most impactful variables for line movement.
+- No rest/travel data — Short-week games (Thursday Night Football) and teams with unfavorable travel schedules can effect team performance.
+- Static historical analysis — Real-time odds would be needed in the future to allow for live bets to exploit these markets.
