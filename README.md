@@ -1,12 +1,12 @@
 # NFL Spread & Over/Under Market Efficiency Analysis
 
-Analyzing 6,971 NFL games from 2000-2025 to assess how efficiently the betting market prices point spreads and totals. Built using Python with a focus on quantitative reasoning, feature engineering, and predictive modeling.
+This project examines whether NFL betting markets are truly efficient by analyzing 6,971 games from 2000-2025. The findings suggest a statistically significant but unexploitable underdog bias in the spread market, with the totals market showing greater efficiency overall. Built using Python with a focus on quantitative reasoning, feature engineering, and predictive modeling.
 
 ## Key Findings
 - Favorites covered the spread only 46.9% of the time: There is a statistically significant bias (p < 0.0001) for the underdog, though insufficient to exploit profitably after standard vig (-110 odds).
 - The over/under market appears more efficient than the spread market: The actual totals in the game are more symmetrically distributed around the pregame O/U line.
 - Wind speed is an undervalued factor in totals: Games where the wind is above 15 mph result in low scoring games, very often going under the O/U pregame line. It is a small sample size and would need further research.
-- Logistic regression and random forest models achieved 52.9% and 52.8% cross-validation accuracy: It's very difficult to beat the market most of the time but there are small gaps it can be done.
+- Logistic regression and random forest models achieved 52.9% and 52.8% cross-validation accuracy: It's very difficult to beat the market most of the time but there are small gaps where it can be done.
 
 ## Visualizations
 
@@ -35,7 +35,7 @@ Analyzing 6,971 NFL games from 2000-2025 to assess how efficiently the betting m
 Even with a statistically significant underdog bias, three factors prevent long-term profit:
 
 1. The vig: Standard -110 odds require 52.4% accuracy to break even. The underdog cover rate of 53.1% leaves almost no margin.
-2. Market correction: When sharp money fades the favorites, books will adjust the lines lines, getting rid of the edge in real time.
+2. Market correction: When sharp money fades the favorites, books will adjust the lines, getting rid of the edge in real time.
 3. No opening/closing line data: This dataset only contains one spread for each game. There isn't an opening and closing line. True edge is measured by closing line value.
 
 ## Methodology
@@ -70,5 +70,5 @@ Even with a statistically significant underdog bias, three factors prevent long-
 
 - No opening/closing line: Adding both lines would allow us to view closing line value analysis.
 - No injury data: Injuries are among the most impactful variables for line movement.
-- No rest/travel data: Short-week games (Thursday Night Football) and teams with unfavorable travel schedules can effect team performance.
+- No rest/travel data: Short-week games (Thursday Night Football) and teams with unfavorable travel schedules can affect team performance.
 - Static historical analysis: Real-time odds would be needed in the future to allow for live bets to exploit these markets.
